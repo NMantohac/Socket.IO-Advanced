@@ -16,8 +16,7 @@
         <div class="col-sm-2 rooms">
             <h3>Rooms</h3>
             <ul class="room-list">
-                <li onclick="joinRoom(1,2)"><span class="glyphicon glyphicon-lock"></span>Main Room</li>
-                <li onclick="joinRoom(2,1)"><span class="glyphicon glyphicon-globe"></span>Meeting Room</li>
+                <!-- JS will update this dynamically! -->
             </ul>
         </div>
         <div class="chat-panel col-sm-9">
@@ -84,5 +83,7 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="/script.js"></script>
+  <script src="/joinNs.js"></script>
+  <script src="/joinRoom.js"></script>
 </body>
 </html>
