@@ -7,15 +7,21 @@ app.use(express.static(__dirname + '/public'));
 const expressServer = app.listen(9000);
 const io = socketio(expressServer);
 
-// io.on = io.of('/').on
 io.on('connection', (socket) => {
   socket.emit('messageFromServer', { data: 'Welcome to the socketio server' });
   socket.on('messageToServer', (dataFromClient) => {
     console.log(dataFromClient);
   });
-  socket.join('level1');
-  socket.to('level1').emit('joined', `${socket.id} says I have joined the level 1 room!`);
-});
+  socket.on('newMessageToServer', (msg) => {
+    // console.log(msg);
+    io.emit('messageToClients', { text: msg.text });
+  });
+
+  // The server can still communicate across namespaces
+  // But on the clientInformation, the socket needs to be in THAT namespace
+  // in order to get the events
+    // io.of('/admin').emit('welcome', 'Welcome to the admin channel from the main channel!');
+})
 
 io.of('/admin').on('connection', (socket) => {
   console.log('Someone connected to the admin namespace!');
